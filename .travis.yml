@@ -11,4 +11,4 @@ install:
    - composer require "satooshi/php-coveralls"
    - phpunit --version
 after_success:
-  - travis_retry php vendor/bin/coveralls
+  - travis_retry php vendor/bin/coveralls -v
