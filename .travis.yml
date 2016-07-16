@@ -8,3 +8,4 @@ php:
   - hhvm
 install:
    - composer install
+   - phpunit --version
