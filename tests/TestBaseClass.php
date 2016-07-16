@@ -5,12 +5,11 @@ namespace BespokeSupport\VoodooSmsTest;
 use BespokeSupport\VoodooSms\VoodooSmsClient;
 use BespokeSupport\VoodooSms\VoodooSmsException;
 use BespokeSupport\VoodooSms\VoodooSmsRequest;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class TestBaseClass
  */
-class TestBaseClass extends TestCase
+class TestBaseClass extends \PHPUnit_Framework_TestCase
 {
     /**
      * @return VoodooSmsClient
