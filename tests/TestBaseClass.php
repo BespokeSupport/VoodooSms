@@ -4,7 +4,6 @@ namespace BespokeSupport\VoodooSmsTest;
 
 use BespokeSupport\VoodooSms\VoodooSmsClient;
 use BespokeSupport\VoodooSms\VoodooSmsException;
-use BespokeSupport\VoodooSms\VoodooSmsRequest;
 
 /**
  * Class TestBaseClass
@@ -29,7 +28,8 @@ class TestBaseClass extends \PHPUnit_Framework_TestCase
      */
     protected function getRequest()
     {
-        $builder = $this->getMockBuilder(VoodooSmsRequest::class);
+        $rClass = '\BespokeSupport\VoodooSms\VoodooSmsRequest';
+        $builder = $this->getMockBuilder($rClass);
         $request = $builder->getMock();
 
         return $request;
