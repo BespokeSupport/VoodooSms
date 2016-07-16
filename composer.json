@@ -1,0 +1,29 @@
+{
+  "name": "bespoke-support/sms-voodoo",
+  "description": "SMS via VoodooSMS.com",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Richard Seymour",
+      "email": "web@seymour.im"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "BespokeSupport\\VoodooSms\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "BespokeSupport\\VoodooSmsTest\\": "tests"
+    }
+  },
+  "require": {
+    "giggsey/libphonenumber-for-php": "7.*"
+  },
+  "suggest": {
+    "ext-json": "*",
+    "ext-curl": "*"
+  }
+}
