@@ -29,7 +29,8 @@ class TestBaseClass extends \PHPUnit_Framework_TestCase
      */
     protected function getRequest()
     {
-        $request = $this->getMockBuilder(VoodooSmsRequest::class)->getMock();
+        $builder = $this->getMockBuilder(VoodooSmsRequest::class);
+        $request = $builder->getMock();
 
         return $request;
     }
@@ -44,7 +45,8 @@ class TestBaseClass extends \PHPUnit_Framework_TestCase
 
         if (!defined('VOODOO_API_USER')) {
             $request = $this->getRequest();
-            $request->method('getResponse')->will($testResult);
+            $mockMethod = $request->method('getResponse');
+            $mockMethod->will($testResult);
             $client->client = $request;
         }
 
@@ -62,7 +64,8 @@ class TestBaseClass extends \PHPUnit_Framework_TestCase
         if (!defined('VOODOO_API_USER')) {
             $request = $this->getRequest();
             $exception = ($exception) ? : new VoodooSmsException();
-            $request->method('getResponse')->willThrowException($exception);
+            $mockMethod = $request->method('getResponse');
+            $mockMethod->willThrowException($exception);
             $client->client = $request;
         }
 
