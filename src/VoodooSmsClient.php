@@ -208,7 +208,8 @@ class VoodooSmsClient
             'msg' => $msg,
         );
 
-        $response = (new VoodooSmsRequest())->getResponse('sendSms', $params);
+        $class = new VoodooSmsRequest();
+        $response = $class->getResponse('sendSms', $params);
 
         return $response->reference_id[0];
     }
@@ -253,7 +254,8 @@ class VoodooSmsClient
     public function getDlr($date = null)
     {
         if (!$date) {
-            $date = (new \DateTime())->format('Y-m-d');
+            $now = new \DateTime();
+            $date = $now->format('Y-m-d');
         }
 
         $date = VoodooSmsValidate::dateOptionalTime($date);
