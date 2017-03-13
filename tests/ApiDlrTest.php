@@ -1,10 +1,9 @@
 <?php
 
-use BespokeSupport\VoodooSms\VoodooSmsException;
 use BespokeSupport\VoodooSmsTest\TestBaseClass;
 
 /**
- * Class ApiDlrTest
+ * Class ApiDlrTest.
  */
 class ApiDlrTest extends TestBaseClass
 {
@@ -22,12 +21,9 @@ class ApiDlrTest extends TestBaseClass
         $client->getDlr(true);
     }
 
-    /**
-     *
-     */
     public function testDlrDateOk()
     {
-        $responseArray = array();
+        $responseArray = [];
         $responseObject = new stdClass();
         $responseObject->destination_number = '447894561234';
         $responseObject->delivery_status = 'Delivered';
@@ -43,9 +39,6 @@ class ApiDlrTest extends TestBaseClass
         $this->assertSame($responseObject->delivery_status, $response[0]->delivery_status);
     }
 
-    /**
-     *
-     */
     public function testDlrFail()
     {
         $responseObject = new stdClass();
@@ -60,12 +53,9 @@ class ApiDlrTest extends TestBaseClass
         $this->assertSame($responseObject->resultText, $response->resultText);
     }
 
-    /**
-     *
-     */
     public function testDlrOk()
     {
-        $responseArray = array();
+        $responseArray = [];
         $responseObject = new stdClass();
         $responseObject->destination_number = '447894561234';
         $responseObject->delivery_status = 'Delivered';

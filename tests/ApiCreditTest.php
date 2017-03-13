@@ -3,14 +3,10 @@
 use BespokeSupport\VoodooSmsTest\TestBaseClass;
 
 /**
- * Class ApiCreditTest
- *
+ * Class ApiCreditTest.
  */
 class ApiCreditTest extends TestBaseClass
 {
-    /**
-     *
-     */
     public function testCreditOk()
     {
         $responseObject = new stdClass();

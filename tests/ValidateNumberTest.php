@@ -28,7 +28,6 @@ class ValidateNumberTest extends TestBaseClass
         $this->assertNotNull($r);
     }
 
-
     public function testNumberSingle()
     {
         $number = '01772123456';
@@ -50,10 +49,10 @@ class ValidateNumberTest extends TestBaseClass
      */
     public function testIsMultipleArray()
     {
-        $number = array(
+        $number = [
             '01772123456',
-            '07894561234'
-        );
+            '07894561234',
+        ];
         VoodooSmsValidate::numberSingle($number);
     }
 }

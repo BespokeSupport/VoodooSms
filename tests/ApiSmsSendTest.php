@@ -4,7 +4,7 @@ use BespokeSupport\VoodooSms\VoodooSmsExceptionClient;
 use BespokeSupport\VoodooSmsTest\TestBaseClass;
 
 /**
- * Class ApiSmsSendTest
+ * Class ApiSmsSendTest.
  */
 class ApiSmsSendTest extends TestBaseClass
 {
@@ -35,17 +35,14 @@ class ApiSmsSendTest extends TestBaseClass
         $client->sendSms($from, $to, $message);
     }
 
-    /**
-     *
-     */
     public function testOk()
     {
         $responseObject = new stdClass();
         $responseObject->result = 200;
         $responseObject->resultText = '200 OK';
-        $responseObject->reference_id = array(
-            '999QQ9QQQ9Q9999999999'
-        );
+        $responseObject->reference_id = [
+            '999QQ9QQQ9Q9999999999',
+        ];
 
         $from = '447860041446';
         $to = '447999999999';
@@ -58,17 +55,14 @@ class ApiSmsSendTest extends TestBaseClass
         $this->assertSame($responseObject->reference_id[0], $response);
     }
 
-    /**
-     *
-     */
     public function testMultipleOk()
     {
         $responseObject = new stdClass();
         $responseObject->result = 200;
         $responseObject->resultText = '200 OK';
-        $responseObject->reference_id = array(
-            '999QQ9QQQ9Q9999999999'
-        );
+        $responseObject->reference_id = [
+            '999QQ9QQQ9Q9999999999',
+        ];
 
         $from = '447860041446';
         $to = '447999999999,447999999998';

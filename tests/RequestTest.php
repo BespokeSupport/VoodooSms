@@ -1,14 +1,12 @@
 <?php
 
-use BespokeSupport\VoodooSms\VoodooSmsException;
-use BespokeSupport\VoodooSmsTest\TestBaseClass;
-
 use BespokeSupport\VoodooSms\VoodooSmsClient;
 use BespokeSupport\VoodooSms\VoodooSmsRequest;
 use BespokeSupport\VoodooSms\VoodooSmsRequestAbstract;
+use BespokeSupport\VoodooSmsTest\TestBaseClass;
 
 /**
- * Class RequestTest
+ * Class RequestTest.
  */
 class RequestTest extends TestBaseClass
 {
@@ -32,37 +30,27 @@ class RequestTest extends TestBaseClass
         $client->getCredit();
     }
 
-
-    /**
-     *
-     */
     public function testJsonOk()
     {
         $json = '{key:"value"}';
         $decoded = json_decode($json);
 
-        $data = VoodooSmsRequestAbstract::jsonDecodeCheck($json, array('format' => 'json'));
+        $data = VoodooSmsRequestAbstract::jsonDecodeCheck($json, ['format' => 'json']);
 
         $this->assertSame($decoded, $data);
     }
 
-    /**
-     *
-     */
     public function testPhpOk()
     {
         $decoded = new stdClass();
         $decoded->key = 'value';
         $json = 'array("key"=>"value")';
 
-        $data = VoodooSmsRequestAbstract::jsonDecodeCheck($json, array('format' => 'php'));
+        $data = VoodooSmsRequestAbstract::jsonDecodeCheck($json, ['format' => 'php']);
 
         $this->assertSame($decoded->key, $data->key);
     }
 
-    /**
-     *
-     */
     public function testMethod()
     {
         $method = VoodooSmsRequestAbstract::getCallMethod(VoodooSmsRequestAbstract::METHOD_CURL);
@@ -78,17 +66,11 @@ class RequestTest extends TestBaseClass
         VoodooSmsRequestAbstract::getCallMethod(false);
     }
 
-    /**
-     *
-     */
     public function testMethodNonFatalNull()
     {
         VoodooSmsRequestAbstract::getCallMethod(null);
     }
 
-    /**
-     *
-     */
     public function testRaw()
     {
         $return = <<<'TAG'
@@ -108,15 +90,12 @@ TAG;
      */
     public function testResponseFatal()
     {
-        VoodooSmsRequest::getResponseStatic('unknown', array(), 'randomMethod');
+        VoodooSmsRequest::getResponseStatic('unknown', [], 'randomMethod');
     }
 
-    /**
-     *
-     */
     public function testResponseNull()
     {
-        VoodooSmsRequest::getResponseStatic('unknown', array(), 'testMethod');
+        VoodooSmsRequest::getResponseStatic('unknown', [], 'testMethod');
     }
 
     /**
@@ -127,38 +106,26 @@ TAG;
         VoodooSmsClient::call();
     }
 
-    /**
-     *
-     */
     public function testStaticOk()
     {
         VoodooSmsClient::call('getFormat');
     }
 
-    /**
-     *
-     */
     public function testUri()
     {
-        $this->assertSame('https://' . VoodooSmsRequest::URI, VoodooSmsRequest::getUriBase());
+        $this->assertSame('https://'.VoodooSmsRequest::URI, VoodooSmsRequest::getUriBase());
     }
 
-    /**
-     *
-     */
     public function testUrl()
     {
-        $url = VoodooSmsRequest::getUrl('test', array(
+        $url = VoodooSmsRequest::getUrl('test', [
             'k1' => 'v1',
             'k2' => 'v2',
-        ));
+        ]);
 
-        $this->assertSame('https://' . VoodooSmsRequest::URI . 'test?k1=v1&k2=v2', $url);
+        $this->assertSame('https://'.VoodooSmsRequest::URI.'test?k1=v1&k2=v2', $url);
     }
 
-    /**
-     *
-     */
     public function testXml()
     {
         $return = <<<'TAG'
@@ -168,14 +135,11 @@ TAG;
 </xml>
 TAG;
 
-        $data = VoodooSmsRequestAbstract::jsonDecodeCheck($return, array('format' => 'xml'));
+        $data = VoodooSmsRequestAbstract::jsonDecodeCheck($return, ['format' => 'xml']);
 
         $this->assertSame($return, $data);
     }
 
-    /**
-     *
-     */
     public function testFormat()
     {
         $set = 'php';

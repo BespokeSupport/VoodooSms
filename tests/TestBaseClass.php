@@ -6,7 +6,7 @@ use BespokeSupport\VoodooSms\VoodooSmsClient;
 use BespokeSupport\VoodooSms\VoodooSmsException;
 
 /**
- * Class TestBaseClass
+ * Class TestBaseClass.
  */
 class TestBaseClass extends \PHPUnit_Framework_TestCase
 {
@@ -37,6 +37,7 @@ class TestBaseClass extends \PHPUnit_Framework_TestCase
 
     /**
      * @param \PHPUnit_Framework_MockObject_Stub $testResult
+     *
      * @return VoodooSmsClient
      */
     protected function getClientWithTestResponse(\PHPUnit_Framework_MockObject_Stub $testResult)
@@ -55,6 +56,7 @@ class TestBaseClass extends \PHPUnit_Framework_TestCase
 
     /**
      * @param $exception
+     *
      * @return VoodooSmsClient
      */
     protected function getClientWithException(VoodooSmsException $exception = null)
@@ -63,7 +65,7 @@ class TestBaseClass extends \PHPUnit_Framework_TestCase
 
         if (!defined('VOODOO_API_USER')) {
             $request = $this->getRequest();
-            $exception = ($exception) ? : new VoodooSmsException();
+            $exception = ($exception) ?: new VoodooSmsException();
             $mockMethod = $request->method('getResponse');
             $mockMethod->willThrowException($exception);
             $client->client = $request;

@@ -1,8 +1,8 @@
 <?php
 
 use BespokeSupport\VoodooSms\VoodooSmsValidate;
-use BespokeSupport\VoodooSmsTest\TestClass;
 use BespokeSupport\VoodooSmsTest\TestBaseClass;
+use BespokeSupport\VoodooSmsTest\TestClass;
 
 class ValidateFromTest extends TestBaseClass
 {
@@ -34,7 +34,7 @@ class ValidateFromTest extends TestBaseClass
      */
     public function testArray()
     {
-        $number = array();
+        $number = [];
         VoodooSmsValidate::numberFrom($number);
     }
 
