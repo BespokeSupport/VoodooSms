@@ -7,10 +7,10 @@ class ValidateMultipleTest extends TestBaseClass
 {
     public function testNumberMultipleArray()
     {
-        $number = array(
+        $number = [
             '01772123456',
-            '07894561234'
-        );
+            '07894561234',
+        ];
         $success = VoodooSmsValidate::numberMultiple($number);
         $this->assertNotNull($success);
         $this->assertCount(2, $success);
@@ -26,10 +26,10 @@ class ValidateMultipleTest extends TestBaseClass
 
     public function testIsMultipleArray()
     {
-        $number = array(
+        $number = [
             '01772123456',
-            '07894561234'
-        );
+            '07894561234',
+        ];
         $success = VoodooSmsValidate::isNumberMultiple($number);
         $this->assertTrue($success);
     }
@@ -47,7 +47,6 @@ class ValidateMultipleTest extends TestBaseClass
         $r = VoodooSmsValidate::isNumberMultiple($number);
         $this->assertFalse($r);
     }
-
 
     public function testIsMultipleFail()
     {

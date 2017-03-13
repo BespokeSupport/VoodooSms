@@ -3,7 +3,7 @@
 use BespokeSupport\VoodooSmsTest\TestBaseClass;
 
 /**
- * Class ApiSmsGetTest
+ * Class ApiSmsGetTest.
  */
 class ApiSmsGetTest extends TestBaseClass
 {
@@ -16,14 +16,11 @@ class ApiSmsGetTest extends TestBaseClass
         $client->getSms();
     }
 
-    /**
-     *
-     */
     public function testOk()
     {
         $responseObject = new stdClass();
         $responseObject->result = '200 OK';
-        $responseObject->messages = array();
+        $responseObject->messages = [];
 
         $messageObject = new stdClass();
         $messageObject->Message = 'TEST MESSAGE';

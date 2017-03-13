@@ -1,10 +1,9 @@
 <?php
 
-use BespokeSupport\VoodooSms\VoodooSmsException;
 use BespokeSupport\VoodooSmsTest\TestBaseClass;
 
 /**
- * Class ApiDlrStatusTest
+ * Class ApiDlrStatusTest.
  */
 class ApiDlrStatusTest extends TestBaseClass
 {
@@ -34,9 +33,6 @@ class ApiDlrStatusTest extends TestBaseClass
         $this->assertSame($responseObject->result, $response->result);
     }
 
-    /**
-     *
-     */
     public function testDlrOk()
     {
         $responseObject = new stdClass();

@@ -3,8 +3,7 @@
 namespace BespokeSupport\VoodooSmsTest;
 
 /**
- * Class TestClass
- * @package BespokeSupport\VoodooSmsTest
+ * Class TestClass.
  */
 class TestClass
 {
@@ -18,6 +17,6 @@ class TestClass
      */
     public function __toString()
     {
-        return (string)$this->number;
+        return (string) $this->number;
     }
 }

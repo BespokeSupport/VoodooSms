@@ -1,16 +1,17 @@
 <?php
 
 /**
- * VoodooSms API Client
+ * VoodooSms API Client.
  *
  * PHP version 5
  *
  * LICENSE: MIT
  *
  * @category API
- * @package  VoodooSMS
+ *
  * @author   Richard Seymour <web@seymour.im>
  * @license  https://opensource.org/licenses/MIT MIT
+ *
  * @link     https://github.com/BespokeSupport/VoodooSms
  */
 
@@ -20,37 +21,39 @@ use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
 
 /**
- * Class VoodooSmsValidate
+ * Class VoodooSmsValidate.
  *
  * @category API
- * @package  BespokeSupport\VoodooSms
+ *
  * @author   Richard Seymour <web@seymour.im>
  * @license  https://opensource.org/licenses/MIT MIT
+ *
  * @link     https://github.com/BespokeSupport/VoodooSms
  */
 class VoodooSmsValidate
 {
     /**
-     * 2 char ISO
+     * 2 char ISO.
      *
      * @var string
      */
     public static $country = 'GB';
     /**
-     * International Dial code
+     * International Dial code.
      *
      * @var string|int
      */
     public static $countryCode = '44';
 
     /**
-     * Date
+     * Date.
      *
      * @param string $date             Date
      * @param bool   $exceptionOnError Throw
      *
-     * @return null
      * @throws VoodooSmsException
+     *
+     * @return null
      */
     public static function dateOptionalTime($date, $exceptionOnError = true)
     {
@@ -58,7 +61,7 @@ class VoodooSmsValidate
             if ($exceptionOnError) {
                 throw new VoodooSmsException(VoodooSmsException::INVALID_DATE);
             } else {
-                return null;
+                return;
             }
         }
 
@@ -66,7 +69,7 @@ class VoodooSmsValidate
     }
 
     /**
-     * Clean Number
+     * Clean Number.
      *
      * @param string $numberOriginal Number
      *
@@ -74,12 +77,13 @@ class VoodooSmsValidate
      */
     public static function numberClean($numberOriginal)
     {
-        $numberCleaned = preg_replace('/[^\d,]/', '', (string)$numberOriginal);
+        $numberCleaned = preg_replace('/[^\d,]/', '', (string) $numberOriginal);
+
         return $numberCleaned;
     }
 
     /**
-     * Single/Multiple Number(s)
+     * Single/Multiple Number(s).
      *
      * @param string|array|int $number Number(s)
      *
@@ -91,11 +95,11 @@ class VoodooSmsValidate
             return true;
         }
 
-        return (strpos($number, ',') !== false);
+        return strpos($number, ',') !== false;
     }
 
     /**
-     * Explode into array
+     * Explode into array.
      *
      * @param string|array|int $number Number(s)
      *
@@ -110,20 +114,20 @@ class VoodooSmsValidate
         try {
             $number = (string) $number;
         } catch (\Exception $e) {
-            return array();
+            return [];
         }
 
         if (static::isNumberMultiple($number)) {
             $numbers = explode(',', $number);
         } else {
-            $numbers = array($number);
+            $numbers = [$number];
         }
 
         return $numbers;
     }
 
     /**
-     * Validate with Google lib
+     * Validate with Google lib.
      *
      * @param array $numbers      Numbers
      * @param bool  $dumpFailures Include Failures
@@ -131,12 +135,11 @@ class VoodooSmsValidate
      * @return array
      */
     public static function numbersValidate(
-        array $numbers = array(),
+        array $numbers = [],
         $dumpFailures = false
     ) {
-
-        $success = array();
-        $failure = array();
+        $success = [];
+        $failure = [];
 
         foreach ($numbers as $number) {
             $newNumber = static::numberValidate($number);
@@ -148,23 +151,24 @@ class VoodooSmsValidate
         }
 
         if ($dumpFailures) {
-            return array (
+            return  [
                 $success,
-                $failure
-            );
+                $failure,
+            ];
         } else {
             return $success;
         }
     }
 
     /**
-     * Validate single number
+     * Validate single number.
      *
      * @param string|int $number         Number
      * @param bool       $throwException Throw
      *
-     * @return null|string
      * @throws VoodooSmsException
+     *
+     * @return null|string
      */
     public static function numberValidate($number, $throwException = false)
     {
@@ -188,12 +192,12 @@ class VoodooSmsValidate
             // voodoo does not support E.164
             $numberFormatted = ltrim($numberFormatted, '+');
 
-            return ($numberFormatted) ? : null;
+            return ($numberFormatted) ?: null;
         }
     }
 
     /**
-     * Expect Multiple Numbers
+     * Expect Multiple Numbers.
      *
      * @param array|int|string $numberOriginal Number(s)
      *
@@ -209,7 +213,7 @@ class VoodooSmsValidate
     }
 
     /**
-     * Expect Multiple numbers but show failures
+     * Expect Multiple numbers but show failures.
      *
      * @param array|int|string $numberOriginal Number(s)
      *
@@ -225,12 +229,13 @@ class VoodooSmsValidate
     }
 
     /**
-     * Return Single Number
+     * Return Single Number.
      *
      * @param array|int|string $numberOriginal Number(s)
      *
-     * @return string
      * @throws VoodooSmsException
+     *
+     * @return string
      */
     public static function numberSingle($numberOriginal)
     {
@@ -248,12 +253,13 @@ class VoodooSmsValidate
     }
 
     /**
-     * From Number / String
+     * From Number / String.
      *
      * @param int|string $numberOrString Number
      *
-     * @return string
      * @throws VoodooSmsException
+     *
+     * @return string
      */
     public static function numberFrom($numberOrString)
     {
@@ -262,14 +268,14 @@ class VoodooSmsValidate
         }
 
         if (is_object($numberOrString)
-            && !is_callable(array($numberOrString, '__toString'))
+            && !is_callable([$numberOrString, '__toString'])
         ) {
             throw new VoodooSmsExceptionNumber(
                 VoodooSmsExceptionNumber::INVALID_FORMAT
             );
         }
 
-        $cleaned = preg_replace('/[^\d\w]/', '', (string)$numberOrString);
+        $cleaned = preg_replace('/[^\d\w]/', '', (string) $numberOrString);
 
         if (preg_match('/[A-Za-z]/', $cleaned)) {
             if (strlen($cleaned) > 11) {

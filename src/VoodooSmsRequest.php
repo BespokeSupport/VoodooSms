@@ -1,45 +1,47 @@
 <?php
 
 /**
- * VoodooSms API Client
+ * VoodooSms API Client.
  *
  * PHP version 5
  *
  * LICENSE: MIT
  *
  * @category API
- * @package  VoodooSMS
+ *
  * @author   Richard Seymour <web@seymour.im>
  * @license  https://opensource.org/licenses/MIT MIT
+ *
  * @link     https://github.com/BespokeSupport/VoodooSms
  */
 
 namespace BespokeSupport\VoodooSms;
 
 /**
- * Class VoodooSmsRequest
+ * Class VoodooSmsRequest.
  *
  * @category API
- * @package  BespokeSupport\VoodooSms
+ *
  * @author   Richard Seymour <web@seymour.im>
  * @license  https://opensource.org/licenses/MIT MIT
+ *
  * @link     https://github.com/BespokeSupport/VoodooSms
  */
 class VoodooSmsRequest extends VoodooSmsRequestAbstract
 {
     /**
-     * Get Response
+     * Get Response.
      *
      * @param string $method API Method being called
      * @param array  $params Params
      *
-     * @return array|string
-     *
      * @throws VoodooSmsException
+     *
+     * @return array|string
      */
-    public function getResponse($method, array $params = array())
+    public function getResponse($method, array $params = [])
     {
-        $response = VoodooSmsRequest::getResponseStatic($method, $params);
+        $response = self::getResponseStatic($method, $params);
 
         $response = static::jsonDecodeCheck($response, $params);
 
@@ -67,35 +69,35 @@ class VoodooSmsRequest extends VoodooSmsRequestAbstract
     }
 
     /**
-     * Get Response
+     * Get Response.
      *
      * @param string $method     API Method being called
      * @param array  $params     Params
      * @param null   $callMethod Curl / FGC
      *
-     * @return \stdClass|string
-     *
      * @throws VoodooSmsException
+     *
+     * @return \stdClass|string
      */
     public static function getResponseStatic(
         $method,
-        array $params = array(),
+        array $params = [],
         $callMethod = null
     ) {
         $url = static::getUrl($method, $params);
 
-        $callMethod = ($callMethod) ? : VoodooSmsRequestAbstract::getCallMethod();
+        $callMethod = ($callMethod) ?: VoodooSmsRequestAbstract::getCallMethod();
 
         switch ($callMethod) {
         case VoodooSmsRequestAbstract::METHOD_FGC:
-                $opts = array(
-                    'http' => array(
-                        'method' => "GET",
-                    ),
-                    'ssl' => array(
+                $opts = [
+                    'http' => [
+                        'method' => 'GET',
+                    ],
+                    'ssl' => [
                         'verify_peer' => false,
-                    )
-                );
+                    ],
+                ];
 
                 $context = stream_context_create($opts);
 

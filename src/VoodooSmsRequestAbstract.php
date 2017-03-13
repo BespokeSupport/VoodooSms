@@ -1,61 +1,63 @@
 <?php
 
 /**
- * VoodooSms API Client
+ * VoodooSms API Client.
  *
  * PHP version 5
  *
  * LICENSE: MIT
  *
  * @category API
- * @package  VoodooSMS
+ *
  * @author   Richard Seymour <web@seymour.im>
  * @license  https://opensource.org/licenses/MIT MIT
+ *
  * @link     https://github.com/BespokeSupport/VoodooSms
  */
 
 namespace BespokeSupport\VoodooSms;
 
 /**
- * Class VoodooSmsRequestAbstract
+ * Class VoodooSmsRequestAbstract.
  *
  * @category API
- * @package  BespokeSupport\VoodooSms
+ *
  * @author   Richard Seymour <web@seymour.im>
  * @license  https://opensource.org/licenses/MIT MIT
+ *
  * @link     https://github.com/BespokeSupport/VoodooSms
  */
 abstract class VoodooSmsRequestAbstract implements VoodooSmsRequestInterface
 {
     /**
-     * FGC
+     * FGC.
      */
     const METHOD_FGC = 'file_get_contents';
     /**
-     * Curl
+     * Curl.
      */
     const METHOD_CURL = 'curl';
 
     /**
-     * Methods available in this class
+     * Methods available in this class.
      *
      * @return array
      */
     public static function getMethodsAvailable()
     {
-        return array(
+        return [
             self::METHOD_FGC,
             self::METHOD_CURL,
-        );
+        ];
     }
 
     /**
-     *  Base URL for API
+     *  Base URL for API.
      */
     const URI = 'www.voodoosms.com/vapi/server/';
 
     /**
-     * Use HTTPS
+     * Use HTTPS.
      *
      * @return string
      */
@@ -63,32 +65,33 @@ abstract class VoodooSmsRequestAbstract implements VoodooSmsRequestInterface
     {
         $protocol = 'https';
 
-        return $protocol . '://' . VoodooSmsRequest::URI;
+        return $protocol.'://'.VoodooSmsRequest::URI;
     }
 
     /**
-     * Get complete URL
+     * Get complete URL.
      *
      * @param string $method API Method being called
      * @param array  $args   Params
      *
      * @return string
      */
-    public static function getUrl($method, $args = array())
+    public static function getUrl($method, $args = [])
     {
-        $urlParams = static::getUriBase() . $method . '?' . http_build_query($args);
+        $urlParams = static::getUriBase().$method.'?'.http_build_query($args);
+
         return $urlParams;
     }
 
     /**
-     * Decode to Array if possible
+     * Decode to Array if possible.
      *
      * @param string $response Raw Response
      * @param array  $params   Params to see what requested
      *
      * @return string|\stdClass|array
      */
-    public static function jsonDecodeCheck($response, array $params = array())
+    public static function jsonDecodeCheck($response, array $params = [])
     {
         if (empty($params['format'])) {
             return $response;
@@ -109,12 +112,13 @@ abstract class VoodooSmsRequestAbstract implements VoodooSmsRequestInterface
     }
 
     /**
-     * Method for accessing API FGC/Curl
+     * Method for accessing API FGC/Curl.
      *
      * @param string $override curl/file_get_contents
      *
-     * @return null|string
      * @throws VoodooSmsException
+     *
+     * @return null|string
      */
     public static function getCallMethod($override = null)
     {

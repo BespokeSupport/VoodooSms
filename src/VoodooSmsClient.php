@@ -1,58 +1,60 @@
 <?php
 
 /**
- * VoodooSms API Client
+ * VoodooSms API Client.
  *
  * PHP version 5
  *
  * LICENSE: MIT
  *
  * @category API
- * @package  VoodooSMS
+ *
  * @author   Richard Seymour <web@seymour.im>
  * @license  https://opensource.org/licenses/MIT MIT
+ *
  * @link     https://github.com/BespokeSupport/VoodooSms
  */
 
 namespace BespokeSupport\VoodooSms;
 
 /**
- * Class VoodooSmsClient
+ * Class VoodooSmsClient.
  *
  * @category API
- * @package  BespokeSupport\VoodooSms
+ *
  * @author   Richard Seymour <web@seymour.im>
  * @license  https://opensource.org/licenses/MIT MIT
+ *
  * @link     https://github.com/BespokeSupport/VoodooSms
  */
 class VoodooSmsClient
 {
     /**
-     * ISO 2 char country
+     * ISO 2 char country.
      *
      * @var string
      */
     protected $defaultCountry;
     /**
-     * API password
+     * API password.
      *
      * @var string
      */
     protected $pass;
     /**
-     * API username
+     * API username.
      *
      * @var string
      */
     protected $user;
     /**
-     * Format to return the result json/php/xml
+     * Format to return the result json/php/xml.
      *
      * @var string
      */
     public $resultFormat;
     /**
-     * Client used to access API
+     * Client used to access API.
      *
      * @var VoodooSmsRequestInterface
      */
@@ -81,10 +83,11 @@ class VoodooSmsClient
     }
 
     /**
-     * Static call()
+     * Static call().
+     *
+     * @throws VoodooSmsException
      *
      * @return mixed
-     * @throws VoodooSmsException
      */
     public static function call()
     {
@@ -101,16 +104,16 @@ class VoodooSmsClient
         }
 
         return call_user_func_array(
-            array(
+            [
                 $client,
-                $method
-            ),
+                $method,
+            ],
             $args
         );
     }
 
     /**
-     * Return Format
+     * Return Format.
      *
      * @return string
      */
@@ -124,38 +127,37 @@ class VoodooSmsClient
     }
 
     /**
-     * Formats available
+     * Formats available.
      *
      * @return string
      */
     public static function getFormatFunction()
     {
         return (function_exists('json_decode')) ? 'json' : 'php';
-
     }
 
     /**
-     * Default params
+     * Default params.
      *
      * @return array
      */
     public function getParamsDefault()
     {
-        return array(
-            'uid' => $this->user,
-            'pass' => $this->pass,
+        return [
+            'uid'    => $this->user,
+            'pass'   => $this->pass,
             'format' => $this->getFormat(),
-        );
+        ];
     }
 
     /**
-     * Merge default with passed
+     * Merge default with passed.
      *
      * @param array $params Params
      *
      * @return array
      */
-    public function getParams(array $params = array())
+    public function getParams(array $params = [])
     {
         return array_merge(
             $this->getParamsDefault(),
@@ -164,7 +166,7 @@ class VoodooSmsClient
     }
 
     /**
-     * New class()
+     * New class().
      *
      * @param string $user API Username
      * @param string $pass API Password
@@ -179,7 +181,7 @@ class VoodooSmsClient
     }
 
     /**
-     * Send SMS
+     * Send SMS.
      *
      * @param string           $user API Username
      * @param string           $pass API Password
@@ -198,15 +200,15 @@ class VoodooSmsClient
         $toArray = VoodooSmsValidate::numberMultiple($to);
         $numbers = implode(',', $toArray);
 
-        $params = array(
-            'format' => VoodooSmsClient::getFormatFunction(),
-            'cc' => VoodooSmsValidate::$countryCode,
-            'user' => $user,
-            'pass' => $pass,
-            'orig' => $from,
-            'dest' => $numbers,
-            'msg' => $msg,
-        );
+        $params = [
+            'format' => self::getFormatFunction(),
+            'cc'     => VoodooSmsValidate::$countryCode,
+            'user'   => $user,
+            'pass'   => $pass,
+            'orig'   => $from,
+            'dest'   => $numbers,
+            'msg'    => $msg,
+        ];
 
         $class = new VoodooSmsRequest();
         $response = $class->getResponse('sendSms', $params);
@@ -215,7 +217,7 @@ class VoodooSmsClient
     }
 
     /**
-     * Send SMS
+     * Send SMS.
      *
      * @param int|string       $from From Number / String
      * @param int|string|array $to   Numbers
@@ -230,12 +232,12 @@ class VoodooSmsClient
         $toArray = VoodooSmsValidate::numberMultiple($to);
         $numbers = implode(',', $toArray);
 
-        $params = array(
+        $params = [
             'orig' => $from,
             'dest' => $numbers,
-            'msg' => $msg,
-            'cc' => $this->defaultCountry,
-        );
+            'msg'  => $msg,
+            'cc'   => $this->defaultCountry,
+        ];
 
         $params = $this->getParams($params);
 
@@ -245,7 +247,7 @@ class VoodooSmsClient
     }
 
     /**
-     * Get Deliveries
+     * Get Deliveries.
      *
      * @param null $date Date
      *
@@ -260,9 +262,9 @@ class VoodooSmsClient
 
         $date = VoodooSmsValidate::dateOptionalTime($date);
 
-        $params = array(
+        $params = [
             'date' => $date,
-        );
+        ];
 
         $params = $this->getParams($params);
 
@@ -272,7 +274,7 @@ class VoodooSmsClient
     }
 
     /**
-     * Get status of Single Message
+     * Get status of Single Message.
      *
      * @param string $reference Reference
      *
@@ -280,9 +282,9 @@ class VoodooSmsClient
      */
     public function getDlrStatus($reference)
     {
-        $params = array(
+        $params = [
             'reference_id' => $reference,
-        );
+        ];
 
         $params = $this->getParams($params);
 
@@ -292,13 +294,13 @@ class VoodooSmsClient
     }
 
     /**
-     * Get Credit
+     * Get Credit.
      *
      * @return \stdClass|string
      */
     public function getCredit()
     {
-        $params = array();
+        $params = [];
 
         $params = $this->getParams($params);
 
@@ -308,7 +310,7 @@ class VoodooSmsClient
     }
 
     /**
-     * Get Incoming SMSs
+     * Get Incoming SMSs.
      *
      * @param string $dateFrom From Date (2016-01-01)
      * @param string $dateTo   To Date (2016-01-01)
@@ -317,10 +319,10 @@ class VoodooSmsClient
      */
     public function getSms($dateFrom, $dateTo)
     {
-        $params = array(
+        $params = [
             'from' => $dateFrom,
-            'to' => $dateTo,
-        );
+            'to'   => $dateTo,
+        ];
 
         $params = $this->getParams($params);
 
